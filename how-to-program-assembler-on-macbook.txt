@@ -1,0 +1,7 @@
+You can use the PICKit Flash Starter Key (USB!). Check this website: www.teammojo.org/PICkit/pickit1.html
+
+There used to be a Cocoa GUI to program the PICKit made by someone at Microchip, but I can't find it now... (source code was available!).
+
+You can compile your code using gpasm (gputils.sourceforge.net), and then flash it into the PIC using the PICKit.
+
+I found also this simulator that runs perfect on the mac: www.feertech.com/misim/homepage.html

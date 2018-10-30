@@ -1,0 +1,99 @@
+gpasm-1.4.0 #1107 (Mar 24 2015) tmr0ejemplo.a   3-4-2017  18:57:29          PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 
+Error[131]  : Processor type is undefined.
+                      00002                 ORG             0x00
+Error[131]  : Processor type is undefined.
+                      00003                 GOTO    inicio
+                      00004 
+                      00005 ;########### RUTINA DE INTERRUPCION #####################
+                      00006 
+Error[131]  : Processor type is undefined.
+                      00007                 ORG             0X04            ; Atiendo la interrupción
+                      00008 
+Error[131]  : Processor type is undefined.
+                      00009                 BTFSS   PORTB,0         ; si el LED está apagado
+Error[131]  : Processor type is undefined.
+                      00010                 GOTO    LED                     ; voy a LED y lo enciendo
+Error[131]  : Processor type is undefined.
+                      00011                 BCF             PORTB,0         ; sino apago el LED
+Error[131]  : Processor type is undefined.
+                      00012                 BCF             INTCON,2                ; limpio la bandera T0IF
+Error[131]  : Processor type is undefined.
+                      00013                 RETFIE                          ; regreso habilitando la interrupción
+Error[131]  : Processor type is undefined.
+0000                  00014 LED             BSF             PORTB,0         ; enciendo el LED
+Error[131]  : Processor type is undefined.
+                      00015                 BCF             INTCON,2        ; borro la bandera T0IF
+Error[131]  : Processor type is undefined.
+                      00016                 RETFIE                          ; regreso habilitando la interrupción
+                      00017 
+                      00018 ;###################### PROGRAMA PRINCIPAL #########################
+                      00019 
+Error[131]  : Processor type is undefined.
+0000                  00020 INICIO  BSF             STATUS,5            ; configurando puertos
+Error[131]  : Processor type is undefined.
+                      00021                 CLRF    TRISB                ; puerto B es salida
+Error[131]  : Processor type is undefined.
+                      00022                 MOVLW 0x07                      ; cargo w con 00000111
+Error[131]  : Processor type is undefined.
+                      00023                 MOVWF OPTION_REG        ; el Divisor = 256
+Error[131]  : Processor type is undefined.
+                      00024                 BCF             STATUS,5                ; elijo el timer0 como temporizador
+                      00025 
+Error[131]  : Processor type is undefined.
+                      00026                 MOVLW   0XA0                    ; cargo w con 10100000
+Error[131]  : Processor type is undefined.
+                      00027                 MOVWF   INTCON                  ; habilitamos GIE y T0IE
+Error[131]  : Processor type is undefined.
+                      00028                 CLRF    PORTB                   ; limpiamos PORTB
+                      00029         
+Error[131]  : Processor type is undefined.
+0000                  00030 tiempo  MOVLW   0XD8            ; cargo w con 216
+Error[131]  : Processor type is undefined.
+                      00031                 MOVWF   TMR0            ; lo paso a TMR0
+Error[131]  : Processor type is undefined.
+gpasm-1.4.0 #1107 (Mar 24 2015) tmr0ejemplo.a   3-4-2017  18:57:29          PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0000                  00032 NADA    BTFSC   TMR0,7          ; me quedo haciendo nada.
+Error[131]  : Processor type is undefined.
+                      00033                 GOTO    NADA            ; hasta que TMR0 desborde, y entonces
+Error[131]  : Processor type is undefined.
+                      00034                 GOTO    tiempo          ; volveré a cargar TMR0
+                      00035 
+                      00036 ;#############################################################
+                      00037 
+                      00038                 END
+gpasm-1.4.0 #1107 (Mar 24 2015) tmr0ejemplo.a   3-4-2017  18:57:29          PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+INICIO                            00000000
+LED                               00000000
+NADA                              00000000
+tiempo                            00000000
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+All other memory blocks unused.
+
+Program Memory Words Used:     0
+
+
+Errors   :    24
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

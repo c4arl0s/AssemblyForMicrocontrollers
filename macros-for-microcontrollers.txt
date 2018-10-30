@@ -1,0 +1,32 @@
+Macros
+
+Macro is defined with directive macro containing the name of macro and parameters if needed. In program, definition of macro has to be placed before the instruction line where macro is called upon. When during program execution macro is encountered, it is replaced with an appropriate set of instructions stated in the macro's definition.
+
+macro_name  macro par1, par2,..
+    set of instructions
+    set of instructions
+    endm
+
+The simplest use of macro could be naming a set of repetitive instructions to avoid errors during retyping. As an example, we could use a macro for selecting a bank of SFR registers or for a global permission of interrupts. It is much easier to have a macro BANK1 in a program than having to memorize which status bit defines the mentioned bank. This is illustrated below: banks 0 and 1 are selected by setting or clearing bit 5 (RP0) of status register, while interrupts are enabled by bit 7
+of INTCON register. First two macros are used for selecting a bank, while other two enable and disable interrupts.
+ 
+bank0   macro               ; Macro bank0
+        bcf STATUS, RP0     ; Reset RP0 bit = Bank0
+        endm                ; End of macro
+         
+bank1   macro               ; Macro bank1
+        bsf STATUS, RP0     ; Set RP0 bit = Bank1
+        endm                ; End of macro
+         
+enableint       macro           ; Interrupts are globally enabled
+                bsf INTCON, 7   ; Set the bit
+                endm            ; End of macro
+         
+disableint      macro           ; Interrupts are globally disabled
+                bcf INTCON, 7   ; Reset the bit
+                endm    ; End of macro
+
+Basic difference between macro and subprogram is that the macro stands for its definition code (sparing the programmer from additional typing) and can have its own parameters while subprogram saves memory, but cannot have its own parameters.
+
+Macros: stands for its definitions code
+Subprograms: saves memory, but cannot have its own parameters.
